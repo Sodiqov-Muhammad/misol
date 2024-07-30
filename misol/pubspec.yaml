@@ -38,16 +38,16 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^24.2.8
   flutter_islamic_icons: ^1.0.2
   http: ^1.2.1
-  shared_preferences: ^2.2.2
+  shared_preferences: ^2.2.3
   flutter_compass: ^0.8.0
   permission_handler: ^11.3.1
   audioplayers: ^5.2.1
+  flutter_launcher_icons: ^0.13.1
  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_icons: "^0.13.1"
 
 flutter_launcher_icons:
   android: "launcher_icon"

@@ -14,6 +14,14 @@ class Tasbeh extends StatefulWidget {
 }
 
 class _TasbehState extends State<Tasbeh> {
+  bool nom = true;
+
+  void nomlar() {
+    setState(() {
+      nom = !nom;
+    });
+  }
+
   final AudioPlayer pla = AudioPlayer();
   int number = 0;
   int qiymat = 0;
@@ -58,129 +66,151 @@ class _TasbehState extends State<Tasbeh> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Colors.green,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: Center(
-                child: CircleAvatar(
-                  radius: 120,
-                  backgroundColor: Colors.green,
-                  backgroundImage: AssetImage('rasm/aaa.png'),
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          color: Colors.green,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 4,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20, top: 5),
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            nomlar();
+                          });
+                        },
+                        icon: nom
+                            ? Icon(Icons.play_arrow)
+                            : Icon(Icons.play_disabled),
+                      ),
+                    ),
+                    Center(
+                      child: CircleAvatar(
+                        radius: 120,
+                        backgroundColor: Colors.green,
+                        backgroundImage: AssetImage('rasm/aaa.png'),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Expanded(
-              flex: 6,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      puls();
-                      pla.play(AssetSource('sound.mp3'));
-                      pla.seek(Duration.zero);
-                    },
-                    child: Container(
-                      width: 220,
-                      height: 220,
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0.2, 0.2),
-                            blurRadius: 5,
-                            spreadRadius: 7,
-                            color: Color.fromARGB(255, 145, 216, 145),
-                          )
-                        ],
-                        color: Color.fromARGB(255, 103, 215, 116),
-                        borderRadius: BorderRadius.circular(150),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '$number',
-                          style: TextStyle(
-                            fontSize: 80,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+              Expanded(
+                flex: 6,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        puls();
+                        if (nom) {
+                          pla.play(AssetSource('sound.mp3'));
+                          pla.seek(Duration.zero);
+                        }
+                      },
+                      child: Container(
+                        width: 220,
+                        height: 220,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0.2, 0.2),
+                              blurRadius: 5,
+                              spreadRadius: 7,
+                              color: Color.fromARGB(255, 145, 216, 145),
+                            )
+                          ],
+                          color: Color.fromARGB(255, 103, 215, 116),
+                          borderRadius: BorderRadius.circular(150),
+                        ),
+                        child: Center(
+                          child: Text(
+                            '$number',
+                            style: TextStyle(
+                              fontSize: 80,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 60),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        '$qiymat /33',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                    SizedBox(height: 60),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          '$qiymat /33',
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 100),
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    backgroundColor: Colors.green,
-                                    title: Text(
-                                        "Malumotni o'chirichni xoxlaysizmi ?"),
-                                    actions: [
-                                      SizedBox(height: 40),
-                                      Center(
-                                        child: Text(
-                                          "$number",
-                                          style: TextStyle(
-                                              fontSize: 50,
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold),
+                        SizedBox(height: 100),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                      backgroundColor: Colors.green,
+                                      title: Text(
+                                          "Malumotni o'chirichni xoxlaysizmi ?"),
+                                      actions: [
+                                        SizedBox(height: 40),
+                                        Center(
+                                          child: Text(
+                                            "$number",
+                                            style: TextStyle(
+                                                fontSize: 50,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 40,
-                                      ),
-                                      Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text("Yo'q")),
-                                          TextButton(
-                                              onPressed: () {
-                                                clear();
-                                                Navigator.pop(context);
-                                              },
-                                              child: Text("Ha"))
-                                        ],
-                                      )
-                                    ],
-                                  ));
-                        },
-                        icon: Icon(
-                          Icons.refresh,
-                          color: Colors.black,
-                          size: 30,
+                                        SizedBox(
+                                          height: 40,
+                                        ),
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Yo'q")),
+                                            TextButton(
+                                                onPressed: () {
+                                                  clear();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text("Ha"))
+                                          ],
+                                        )
+                                      ],
+                                    ));
+                          },
+                          icon: Icon(
+                            Icons.refresh,
+                            color: Colors.black,
+                            size: 30,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
